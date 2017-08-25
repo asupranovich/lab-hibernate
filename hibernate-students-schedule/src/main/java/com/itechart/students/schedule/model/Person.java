@@ -1,44 +1,43 @@
 package com.itechart.students.schedule.model;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-@MappedSuperclass
-public class Person {
-
-	@Id
-	private Long id;
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "PERSON_TYPE")
+public class Person extends Identity {
 	
-	@Column(name = "FIRSTNAME")
+	@Column(name = "FIRST_NAME")
 	private String firstName;
 	
-	@Column(name = "LASTNAME")
+	@Column(name = "LAST_NAME")
 	private String lastName;
 
 	@Column(name = "GENDER")
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 	
 	@Column(name = "BIRTH_DATE")
+	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 	
-	@OneToOne
-	private Address address;
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Address> addresses;
 	
-	@Embedded
 	private ContactInformation contactInfo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -56,11 +55,11 @@ public class Person {
 		this.lastName = lastName;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -72,12 +71,12 @@ public class Person {
 		this.birthDate = birthDate;
 	}
 
-	public Address getAddress() {
-		return address;
+	public Set<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public ContactInformation getContactInfo() {

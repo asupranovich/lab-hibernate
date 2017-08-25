@@ -15,8 +15,8 @@ public class Address extends Identity {
 //	@SequenceGenerator(name = "ADDRESS_ID_GEN", sequenceName = "SEQ_ADDRESS_ID", allocationSize = 1, initialValue = 1)
 //	private Long id;
 
-	@Column(name = "NAME")
-	private String name;
+	@Column(name = "KIND")
+	private AddressType type;
 	
 	@Column(name = "STREET")
 	private String street;
@@ -30,14 +30,14 @@ public class Address extends Identity {
 	@Column(name = "ZIP")
 	private String zip;
 
-	public String getName() {
-		return name;
+	public AddressType getType() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setType(AddressType type) {
+		this.type = type;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}

@@ -9,6 +9,7 @@ CREATE TABLE `PERSON` (
   `BIRTH_DATE` DATE NOT NULL,
   `GENDER` VARCHAR(10) NOT NULL,
   `YEAR` INT DEFAULT NULL,
+  `DEGREE` VARCHAR(50) DEFAULT NULL,
   `SALARY` DECIMAL DEFAULT NULL,
   `PERSON_TYPE` VARCHAR(1) NOT NULL,
   PRIMARY KEY (`ID`)
@@ -16,7 +17,7 @@ CREATE TABLE `PERSON` (
 
 CREATE TABLE `ADDRESS` (
   `ID` INT NOT NULL AUTO_INCREMENT,
-  `NAME` VARCHAR(50) NOT NULL,
+  `KIND` VARCHAR(50) NOT NULL,
   `OWNER_ID` INT NOT NULL,
   `STREET` VARCHAR(80) NOT NULL,
   `CITY` VARCHAR(50) NOT NULL,
@@ -44,40 +45,40 @@ CREATE TABLE `STUDENT_COURSE` (
 );
 
 -------- STUDENTS ----------
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Dale', 'Cooper', 'dcooper@aol.com', '792-223-8901', STR_TO_DATE('1999-01-01', '%Y-%m-%d'), 'M', 1, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Shelly', 'Johnson', 'sjohnson@aol.com', '792-223-6734', STR_TO_DATE('1997-12-12', '%Y-%m-%d'), 'F', 4, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Bobby', 'Briggs', 'bbriggs@aol.com', '792-223-6178', STR_TO_DATE('1997-05-24', '%Y-%m-%d'), 'M', 2, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Donna', 'Hayward', 'dhayward@aol.com', '792-223-2001', STR_TO_DATE('1997-03-24', '%Y-%m-%d'), 'F', 4, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Audrey', 'Horne', 'ahorne@aol.com', '792-223-2001', STR_TO_DATE('1995-02-01', '%Y-%m-%d'), 'F', 1, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('James', 'Hurley', 'jhurley@aol.com', '792-223-1890', STR_TO_DATE('1997-01-02', '%Y-%m-%d'), 'M', 3, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Lucy', 'Moran', 'lmoran@aol.com', '792-223-9678', STR_TO_DATE('1994-11-27', '%Y-%m-%d'), 'F', 5, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Tommy', 'Hill', 'thill@aol.com', '792-223-1115', STR_TO_DATE('2001-12-21', '%Y-%m-%d'), 'M', 4, 'S');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Andy', 'Brennan', 'abrennan@aol.com', '792-223-8902', STR_TO_DATE('2000-12-27', '%Y-%m-%d'), 'M', 1, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Dale', 'Cooper', 'dcooper@aol.com', '792-223-8901', STR_TO_DATE('1999-01-01', '%Y-%m-%d'), 'MALE', 1, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Shelly', 'Johnson', 'sjohnson@aol.com', '792-223-6734', STR_TO_DATE('1997-12-12', '%Y-%m-%d'), 'FEMALE', 4, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Bobby', 'Briggs', 'bbriggs@aol.com', '792-223-6178', STR_TO_DATE('1997-05-24', '%Y-%m-%d'), 'MALE', 2, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Donna', 'Hayward', 'dhayward@aol.com', '792-223-2001', STR_TO_DATE('1997-03-24', '%Y-%m-%d'), 'FEMALE', 4, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Audrey', 'Horne', 'ahorne@aol.com', '792-223-2001', STR_TO_DATE('1995-02-01', '%Y-%m-%d'), 'FEMALE', 1, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('James', 'Hurley', 'jhurley@aol.com', '792-223-1890', STR_TO_DATE('1997-01-02', '%Y-%m-%d'), 'MALE', 3, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Lucy', 'Moran', 'lmoran@aol.com', '792-223-9678', STR_TO_DATE('1994-11-27', '%Y-%m-%d'), 'FEMALE', 5, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Tommy', 'Hill', 'thill@aol.com', '792-223-1115', STR_TO_DATE('2001-12-21', '%Y-%m-%d'), 'MALE', 4, 'S');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `YEAR`, `PERSON_TYPE`) VALUES ('Andy', 'Brennan', 'abrennan@aol.com', '792-223-8902', STR_TO_DATE('2000-12-27', '%Y-%m-%d'), 'MALE', 1, 'S');
 
 -------- LECTURERS ----------
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `PERSON_TYPE`) VALUES ('David', 'Bush', 'dbush@aol.com', '792-221-1890', STR_TO_DATE('1990-01-02', '%Y-%m-%d'), 'M', 3000, 'L');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `PERSON_TYPE`) VALUES ('Anna', 'Chase', 'ashase@aol.com', '792-221-9678', STR_TO_DATE('1984-11-27', '%Y-%m-%d'), 'F', 5000, 'L');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `PERSON_TYPE`) VALUES ('Jack', 'House', 'jhouse@aol.com', '792-221-1115', STR_TO_DATE('1991-12-21', '%Y-%m-%d'), 'M', 4000, 'L');
-INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `PERSON_TYPE`) VALUES ('Michael', 'Bond', 'mbond@aol.com', '792-221-8902', STR_TO_DATE('1980-12-27', '%Y-%m-%d'), 'M', 3700, 'L');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `DEGREE`, `PERSON_TYPE`) VALUES ('David', 'Bush', 'dbush@aol.com', '792-221-1890', STR_TO_DATE('1990-01-02', '%Y-%m-%d'), 'MALE', 3000, 'Assistant Professor', 'L');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `DEGREE`, `PERSON_TYPE`) VALUES ('Anna', 'Chase', 'ashase@aol.com', '792-221-9678', STR_TO_DATE('1984-11-27', '%Y-%m-%d'), 'FEMALE', 5000, 'Research professor', 'L');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `DEGREE`, `PERSON_TYPE`) VALUES ('Jack', 'House', 'jhouse@aol.com', '792-221-1115', STR_TO_DATE('1991-12-21', '%Y-%m-%d'), 'MALE', 4000, 'Teaching assistant', 'L');
+INSERT INTO `PERSON` (`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE`, `BIRTH_DATE`, `GENDER`, `SALARY`, `DEGREE`, `PERSON_TYPE`) VALUES ('Michael', 'Bond', 'mbond@aol.com', '792-221-8902', STR_TO_DATE('1980-12-27', '%Y-%m-%d'), 'MALE', 3700, 'Professor', 'L');
 
 -------- ADDRESSES ----------
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 1, '711-2880 Nulla St.', 'Mankato', 'MS', '22522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 2, '711-2880 Nulla St.', 'Muskegon', 'CA', '96992');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 3, '711-2880 Nulla St.', 'Calista', 'TX', '96522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 4, '711-2880 Nulla St.', 'Lebanon', 'MS', '96332');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 5, '711-2880 Nulla St.', 'New York', 'NY', '96522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 6, '711-2880 Nulla St.', 'Tamuning', 'MS', '99992');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 7, '711-2880 Nulla St.', 'Mankato', 'MS', '26522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 8, '711-2880 Nulla St.', 'Latrobe', 'PH', '96522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 9, '711-2880 Nulla St.', 'Mankato', 'MS', '96522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 10, '711-2880 Nulla St.', 'Idaho Falls', 'ID', '11122');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 11, '711-2880 Nulla St.', 'Bandera', 'UT', '96522');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 12, '711-2880 Nulla St.', 'Mankato', 'MS', '98922');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 13, '711-2880 Nulla St.', 'Amesbury', 'MR', '92342');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 10, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 11, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 10, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
-INSERT INTO `ADDRESS` (`NAME`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 11, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 1, '711-2880 Nulla St.', 'Mankato', 'MS', '22522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 2, '711-2880 Nulla St.', 'Muskegon', 'CA', '96992');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 3, '711-2880 Nulla St.', 'Calista', 'TX', '96522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 4, '711-2880 Nulla St.', 'Lebanon', 'MS', '96332');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 5, '711-2880 Nulla St.', 'New York', 'NY', '96522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 6, '711-2880 Nulla St.', 'Tamuning', 'MS', '99992');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 7, '711-2880 Nulla St.', 'Mankato', 'MS', '26522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 8, '711-2880 Nulla St.', 'Latrobe', 'PH', '96522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 9, '711-2880 Nulla St.', 'Mankato', 'MS', '96522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 10, '711-2880 Nulla St.', 'Idaho Falls', 'ID', '11122');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 11, '711-2880 Nulla St.', 'Bandera', 'UT', '96522');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 12, '711-2880 Nulla St.', 'Mankato', 'MS', '98922');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('HOME', 13, '711-2880 Nulla St.', 'Amesbury', 'MR', '92342');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 10, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 11, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 10, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
+INSERT INTO `ADDRESS` (`KIND`, `OWNER_ID`, `STREET`, `CITY`, `STATE`, `ZIP`) VALUES ('WORK', 11, '606-3727 Ullamcorper. Str.', 'Corona', 'NM', '10855');
 
 -------- COURCES -----------
 INSERT INTO `COURSE` (`NAME`, `LECTURER_ID`) VALUES ('English', 10);
