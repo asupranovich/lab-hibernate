@@ -7,7 +7,7 @@ import com.itechart.students.schedule.model.Identity;
 
 public abstract class GenericDaoImpl<T extends Identity> implements GenericDao<T> {
 
-	private final EntityManager em;
+	protected final EntityManager em;
 	private final Class<T> entityClass;
 
 	public GenericDaoImpl(EntityManager em, Class<T> entityClass) {
@@ -39,6 +39,6 @@ public abstract class GenericDaoImpl<T extends Identity> implements GenericDao<T
 
 	@Override
 	public void detach(T record) {
-		em.detach(record);		
+		em.detach(record);
 	}
 }

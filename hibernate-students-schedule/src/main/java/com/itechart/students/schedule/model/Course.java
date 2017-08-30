@@ -1,11 +1,13 @@
 package com.itechart.students.schedule.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
@@ -22,8 +24,12 @@ public class Course extends Identity {
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
-	@OrderBy("LAST_NAME ASC")
-	private List<Student> students;
+	@JoinTable(name = "STUDENT_COURSE", 
+		joinColumns = @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID"), 
+		inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
+	)
+	@OrderBy("lastName ASC")
+	private List<Student> students = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "LECTURER_ID")

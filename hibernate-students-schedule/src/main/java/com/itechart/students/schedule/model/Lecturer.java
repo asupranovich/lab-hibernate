@@ -1,5 +1,6 @@
 package com.itechart.students.schedule.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ public class Lecturer extends Person {
 	
 	@OneToMany(mappedBy = "lecturer", fetch = FetchType.LAZY)
 	@OrderBy("NAME ASC")
-	private List<Course> cources;
+	private List<Course> cources = new ArrayList<>();
 
 	public String getDegree() {
 		return degree;

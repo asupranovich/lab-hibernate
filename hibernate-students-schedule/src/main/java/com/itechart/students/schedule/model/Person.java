@@ -1,6 +1,7 @@
 package com.itechart.students.schedule.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class Person extends Identity {
 	private Date birthDate;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	private Set<Address> addresses;
+	private Set<Address> addresses = new HashSet<>();
 	
 	private ContactInformation contactInfo;
 
