@@ -13,9 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
 @Table(name = "COURSE")
 public class Course extends Identity {
@@ -23,7 +20,7 @@ public class Course extends Identity {
 	@Column(name = "NAME")
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "STUDENT_COURSE", 
 		joinColumns = @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID"), 
 		inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
@@ -31,9 +28,9 @@ public class Course extends Identity {
 	@OrderBy("lastName ASC")
 	private List<Student> students = new ArrayList<>();
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LECTURER_ID")
-	@Fetch(FetchMode.SELECT)
+	@org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SELECT)
 	private Lecturer lecturer;
 
 	public String getName() {

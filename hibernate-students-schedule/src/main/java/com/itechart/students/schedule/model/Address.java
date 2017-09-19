@@ -3,32 +3,40 @@ package com.itechart.students.schedule.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "ADDRESS")
 public class Address extends Identity {
 
-/*  In case we use DB sequence */
-//	@Id
-//	@Column(name = "ADDRESS_ID")
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_GEN")
-//	@SequenceGenerator(name = "ADDRESS_ID_GEN", sequenceName = "SEQ_ADDRESS_ID", allocationSize = 1, initialValue = 1)
-//	private Long id;
-
 	@Column(name = "KIND")
+	@NotNull
 	private AddressType type;
 	
 	@Column(name = "STREET")
+	@NotNull
+	@Length.List({
+		@Length(min = 3, message = "Street should be at least {min} characters"),
+		@Length(max = 50, message = "Street should be less than {max} characters"),
+	})
 	private String street;
 
 	@Column(name = "CITY")
+	@NotNull
+	@NotEmpty
 	private String city;
 
 	@Column(name = "STATE")
+	@Length(min = 2, max = 2)
 	private String state;
 	
 	@Column(name = "ZIP")
-	private String zip;
+	@Pattern(regexp = "^[0-9]{5}(?:-[0-9]{4})?$")
+	private String zip; 
 
 	public AddressType getType() {
 		return type;

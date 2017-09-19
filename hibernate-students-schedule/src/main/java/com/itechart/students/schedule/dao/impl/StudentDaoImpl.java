@@ -1,8 +1,10 @@
 package com.itechart.students.schedule.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.itechart.students.schedule.dao.StudentDao;
@@ -16,7 +18,7 @@ public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDa
 
 	@Override
 	public Student getWithAllData(Long id) {
-		TypedQuery<Student> query = em.createQuery("select s from Student s join fetch courses where s.id = :id",
+		TypedQuery<Student> query = em.createQuery("select s from Student s join fetch s.courses where s.id = :id",
 				Student.class);
 		query.setParameter("id", id);
 		Student student = query.getSingleResult();
@@ -24,13 +26,14 @@ public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDa
 		Double averageMark = getAverageMark(id);
 		student.setAverageMark(averageMark);
 
-		return query.getSingleResult();
+		return student;
 	}
 
 	private Double getAverageMark(Long id) {
-		TypedQuery<Double> averageMarkQuery = em.createNamedQuery("getStudentAverageMark", Double.class);
+		Query averageMarkQuery = em.createNamedQuery("getStudentAverageMark");
 		averageMarkQuery.setParameter(1, id);
-		return averageMarkQuery.getSingleResult();
+		BigDecimal averageMark = (BigDecimal) averageMarkQuery.getSingleResult();
+		return averageMark.doubleValue();
 	}
 	
 	@Override
