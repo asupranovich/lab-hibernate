@@ -34,6 +34,7 @@ public abstract class GenericDaoImpl<T extends Identity> implements GenericDao<T
 
 	@Override
 	public void update(T record) {
+		System.out.println("Updating record...");
 		em.merge(record);
 	}
 

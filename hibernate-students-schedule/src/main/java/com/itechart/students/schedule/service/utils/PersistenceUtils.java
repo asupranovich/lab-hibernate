@@ -8,7 +8,7 @@ public class PersistenceUtils {
 
 	private static final String PERSISTENT_UNIT = "hello-world-hibernate";
 	
-	private static EntityManager getEntityManager() {
+	public static EntityManager getEntityManager() {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
 		return emFactory.createEntityManager();
 	}
