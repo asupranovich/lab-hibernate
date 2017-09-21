@@ -1,4 +1,4 @@
-package com.itechart.students.schedule.service.utils;
+package com.itechart.students.schedule.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
