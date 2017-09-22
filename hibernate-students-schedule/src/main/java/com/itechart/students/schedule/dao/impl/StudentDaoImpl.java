@@ -18,7 +18,7 @@ public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDa
 
 	@Override
 	public Student getWithAllData(Long id) {
-		TypedQuery<Student> query = em.createQuery("select s from Student s join fetch s.courses where s.id = :id",
+		TypedQuery<Student> query = em.createQuery("select s from Student s join fetch s.courses join fetch s.addresses where s.id = :id",
 				Student.class);
 		query.setParameter("id", id);
 		Student student = query.getSingleResult();
@@ -41,4 +41,10 @@ public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDa
 		TypedQuery<Student> query = em.createQuery("select s from Student s", Student.class);
 		return query.getResultList();
 	}
+	
+	@Override
+	public Collection<Student> search(String keyword) {
+		return null;
+	}
+	
 }

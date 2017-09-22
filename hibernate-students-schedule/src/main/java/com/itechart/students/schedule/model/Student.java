@@ -1,7 +1,7 @@
 package com.itechart.students.schedule.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -23,7 +23,7 @@ public class Student extends Person {
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "students")
 	@OrderBy("name ASC")
-	private List<Course> courses = new ArrayList<>();
+	private Set<Course> courses = new HashSet<>();
 
 	@Column(name = "YEAR")
 	private Integer year;
@@ -31,11 +31,11 @@ public class Student extends Person {
 	@Transient
 	private Double averageMark;
 
-	public List<Course> getCourses() {
+	public Set<Course> getCourses() {
 		return courses;
 	}
 
-	public void setCourses(List<Course> courses) {
+	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
 

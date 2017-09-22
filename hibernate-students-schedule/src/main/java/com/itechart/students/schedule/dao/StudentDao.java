@@ -10,4 +10,6 @@ public interface StudentDao extends GenericDao<Student> {
 	
 	Collection<Student> getAll();
 	
+	Collection<Student> search(String keyword);
+	
 }

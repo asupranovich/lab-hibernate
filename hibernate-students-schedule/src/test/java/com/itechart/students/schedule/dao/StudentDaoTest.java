@@ -1,23 +1,24 @@
 package com.itechart.students.schedule.dao;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.itechart.students.schedule.AbstractTest;
 import com.itechart.students.schedule.dao.impl.StudentDaoImpl;
 import com.itechart.students.schedule.model.Course;
 import com.itechart.students.schedule.model.Student;
 
-public class StudentDaoTest extends CommonDaoTest {
+public class StudentDaoTest extends AbstractTest {
 
 	private StudentDao studentDao;
 
 	@Before
 	public void init() {
 		super.init();
-		studentDao = new StudentDaoImpl(entityManager);
+		studentDao = new StudentDaoImpl(em);
 	}
 
 	@Test
@@ -31,7 +32,7 @@ public class StudentDaoTest extends CommonDaoTest {
 		Student studentWithAllData = studentDao.getWithAllData(1L);
 		Assert.assertNotNull(studentWithAllData);
 
-		List<Course> courses = studentWithAllData.getCourses();
+		Set<Course> courses = studentWithAllData.getCourses();
 		Assert.assertTrue(courses != null && courses.size() > 0);
 
 		Double averageMark = studentWithAllData.getAverageMark();

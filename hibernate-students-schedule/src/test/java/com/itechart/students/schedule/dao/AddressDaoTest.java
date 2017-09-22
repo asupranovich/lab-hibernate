@@ -4,18 +4,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.itechart.students.schedule.AbstractTest;
 import com.itechart.students.schedule.dao.impl.AddressDaoImpl;
+import com.itechart.students.schedule.dao.impl.StudentDaoImpl;
 import com.itechart.students.schedule.model.Address;
 import com.itechart.students.schedule.model.AddressType;
 
-public class AddressDaoTest extends CommonDaoTest {
+public class AddressDaoTest extends AbstractTest {
 
 	private AddressDao addressDao;
+	private StudentDao studentDao;
 	
 	@Before
 	public void init() {
 		super.init();
-		addressDao = new AddressDaoImpl(entityManager);
+		addressDao = new AddressDaoImpl(em);
+		studentDao = new StudentDaoImpl(em);
 	}
 	
 	@Test
@@ -47,6 +51,7 @@ public class AddressDaoTest extends CommonDaoTest {
 		Address createdAddress = addressDao.getById(address.getId());
 		Assert.assertEquals(address, createdAddress);
 	}
+	
 	
 	
 }

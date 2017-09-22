@@ -1,4 +1,4 @@
-package com.itechart.students.schedule.dao;
+package com.itechart.students.schedule;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import com.itechart.students.schedule.utils.PersistenceUtils;
 
-public class CommonDaoTest {
+public abstract class AbstractTest {
 
-	protected final static Logger LOG = LoggerFactory.getLogger(CommonDaoTest.class);
+	protected final static Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
 	
-	protected EntityManager entityManager;
+	protected EntityManager em;
 
 	protected boolean executeInTransaction(WorkUnit workUnit) {
-		EntityTransaction transaction = entityManager.getTransaction();
+		EntityTransaction transaction = em.getTransaction();
 		boolean succefullExecution;
 		try {
 			transaction.begin();
@@ -34,13 +34,15 @@ public class CommonDaoTest {
 	
 	public void init() {
 		LOG.info("Getting EntityManager ...");
-		entityManager = PersistenceUtils.getEntityManager();
+		em = PersistenceUtils.getEntityManager();
 	}
 
 	@After
 	public void cleanUp() {
 		LOG.info("Closing EnityManager");
-		entityManager.close();
+		if(em.isOpen()) {
+			em.close();
+		}
 	}
 	
 	protected interface WorkUnit {
