@@ -3,7 +3,6 @@ package com.itechart.students.schedule.dao;
 import java.util.Collection;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.itechart.students.schedule.AbstractTest;
@@ -14,10 +13,8 @@ public class CourseDaoTest extends AbstractTest {
 
 	private CourseDao courseDao;
 	
-	@Before
 	@Override
-	public void init() {
-		super.init();
+	public void setup() {
 		courseDao = new CourseDaoImpl(em);
 	}
 	

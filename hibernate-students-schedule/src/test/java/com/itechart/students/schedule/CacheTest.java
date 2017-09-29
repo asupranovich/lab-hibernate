@@ -1,27 +1,30 @@
 package com.itechart.students.schedule;
 
+import org.hibernate.Hibernate;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.itechart.students.schedule.model.Student;
+import com.itechart.students.schedule.model.Course;
+import com.itechart.students.schedule.model.Lecturer;
 
 public class CacheTest extends AbstractTest {
-	// https://habrahabr.ru/post/135176/
-	@Before
-	public void init() {
-		super.init();
-	}
-	
+
 	@Test
 	public void firstLevelCacheTest() {
-		Student student = em.find(Student.class, 5L);
-		Assert.assertNotNull(student);
+		Lecturer lecturer1 = em.find(Lecturer.class, 10L);
+		Assert.assertNotNull(lecturer1);
 		
-		Student student2 = em.find(Student.class, 5L);
-		Assert.assertNotNull(student2);
+		Lecturer lecturer2 = em.find(Lecturer.class, 10L);
+		Assert.assertNotNull(lecturer2);
 		
-		Assert.assertTrue(student == student2);
+		Assert.assertTrue(lecturer1 == lecturer2);
+		
+		Course course = em.find(Course.class, 1L);
+		Lecturer lecturer3 = course.getLecturer();
+		
+// 		uncomment to verify that without pre-loaded lecturer1, lecturer3 won't be initialized
+//		Assert.assertFalse(Hibernate.isInitialized(lecturer3));
+		Assert.assertTrue(lecturer1 == lecturer3);
 	}
 	
 }

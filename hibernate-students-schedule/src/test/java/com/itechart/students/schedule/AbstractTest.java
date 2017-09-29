@@ -1,50 +1,61 @@
 package com.itechart.students.schedule;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import org.junit.After;
+import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.itechart.students.schedule.utils.PersistenceUtils;
 
 public abstract class AbstractTest {
 
 	protected final static Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
-	
+	private static final String PERSISTENT_UNIT = "hello-world-hibernate";
+
 	protected EntityManager em;
+	private EntityManagerFactory emf;
 
 	protected boolean executeInTransaction(WorkUnit workUnit) {
 		EntityTransaction transaction = em.getTransaction();
-		boolean succefullExecution;
+		boolean commited;
 		try {
 			transaction.begin();
 			workUnit.execute();
 			transaction.commit();
 			LOG.info("Transaction committed");
-			succefullExecution = true;
+			commited = true;
 		} catch (Exception e) {
 			LOG.warn("Got exception --> transaction will be rolled back", e);
 			transaction.rollback();
-			succefullExecution = false;
+			commited = false;
 		}
-		return succefullExecution;
+		return commited;
+	}
+
+	@Before
+	public void init() {
+		emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
+		em = emf.createEntityManager();
+		setup();
 	}
 	
-	public void init() {
-		LOG.info("Getting EntityManager ...");
-		em = PersistenceUtils.getEntityManager();
+	protected void setup() {
+		
 	}
 
 	@After
 	public void cleanUp() {
-		LOG.info("Closing EnityManager");
-		if(em.isOpen()) {
+		if (em.isOpen()) {
 			em.close();
 		}
+		if (emf.isOpen()) {
+			emf.close();
+		}
 	}
-	
+
 	protected interface WorkUnit {
 
 		void execute();

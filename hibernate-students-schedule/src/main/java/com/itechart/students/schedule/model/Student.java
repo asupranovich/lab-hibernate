@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "getStudentAverageMark", query="SELECT AVG(MARK) FROM TEST3.STUDENT_COURSE WHERE STUDENT_ID = ?")
 })
-
 @Entity
 @DiscriminatorValue("S")
 public class Student extends Person {

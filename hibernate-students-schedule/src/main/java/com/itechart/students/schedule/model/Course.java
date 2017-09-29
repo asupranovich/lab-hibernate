@@ -23,7 +23,7 @@ public class Course extends Identity {
 	@Column(name = "NAME")
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "STUDENT_COURSE", 
 		joinColumns = @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID"), 
 		inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
