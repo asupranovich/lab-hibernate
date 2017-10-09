@@ -12,24 +12,22 @@ public class HelloWorldHibernate {
 	private static final String PERSISTENT_UNIT = "hello-world-hibernate";
 
 	public static void main(String a[]) {
-		List<Student> students = getStudents();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
+		EntityManager em = emf.createEntityManager();
+		
+		List<Student> students = getStudents(em);
 		PrintUtils.printStudents(students);
-		System.exit(0);
+		
+		em.close();
+		emf.close();
 	}
 
 	@SuppressWarnings("unchecked")
-	private static List<Student> getStudents() {
-		EntityManager em = getEntityManager();
+	private static List<Student> getStudents(EntityManager em) {
 		Query query = em.createQuery("select s from Student s");
 		List<Student> students = (List<Student>) query.getResultList();
-		em.close();
 
 		return students;
-	}
-
-	private static EntityManager getEntityManager() {
-		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
-		return emFactory.createEntityManager();
 	}
 
 }

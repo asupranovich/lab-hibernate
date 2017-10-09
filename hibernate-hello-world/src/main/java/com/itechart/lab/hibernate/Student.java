@@ -7,11 +7,11 @@ import javax.persistence.Id;
 public class Student {
 
 	@Id
-	public Integer id;
+	private Integer id;
 
-	public String firstName;
+	private String firstName;
 
-	public String lastName;
+	private String lastName;
 
 	public Integer getId() {
 		return id;
