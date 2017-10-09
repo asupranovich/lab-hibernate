@@ -44,7 +44,7 @@ public class QueriesTest extends AbstractTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSqlQuery() {
-		Query personQuery = em.createNativeQuery("SELECT p.* FROM test3.PERSON p INNER JOIN test3.ADDRESS a ON p.ID = a.OWNER_ID WHERE p.GENDER = :gender AND a.CITY = :city ORDER BY p.LAST_NAME", Person.class);
+		Query personQuery = em.createNativeQuery("SELECT p.* FROM PERSON p INNER JOIN ADDRESS a ON p.ID = a.OWNER_ID WHERE p.GENDER = :gender AND a.CITY = :city ORDER BY p.LAST_NAME", Person.class);
 		personQuery.setFirstResult(0);
 		personQuery.setMaxResults(10);
 		

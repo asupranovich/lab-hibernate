@@ -3,8 +3,6 @@ package com.itechart.students.schedule;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -15,7 +13,6 @@ import org.junit.Test;
 
 import com.itechart.students.schedule.model.Course;
 import com.itechart.students.schedule.model.Lecturer;
-import com.itechart.students.schedule.model.Person;
 import com.itechart.students.schedule.model.Student;
 
 public class FetchTest extends AbstractTest {
