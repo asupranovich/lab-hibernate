@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.itechart.students.schedule.model.Address;
@@ -12,6 +13,7 @@ import com.itechart.students.schedule.model.ContactInformation;
 import com.itechart.students.schedule.model.Gender;
 import com.itechart.students.schedule.model.Student;
 
+@Ignore
 public class CascadeTest extends AbstractTest {
 
 	@Test

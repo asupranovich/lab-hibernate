@@ -3,6 +3,7 @@ package com.itechart.students.schedule;
 import java.util.Calendar;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.itechart.students.schedule.model.Address;
@@ -11,7 +12,7 @@ import com.itechart.students.schedule.model.ContactInformation;
 import com.itechart.students.schedule.model.Gender;
 import com.itechart.students.schedule.model.Student;
 
-
+@Ignore
 public class EntityManagerTest extends AbstractTest {
 	
 	@Test
@@ -93,6 +94,16 @@ public class EntityManagerTest extends AbstractTest {
 		// put breakpoint here and change value in DB
 		em.refresh(student);
 		Assert.assertEquals("John1", student.getFirstName());
+	}
+	
+	@Test
+	public void testAutoFlush() {
+		Student student = em.find(Student.class, 9L);
+		student.setLastName("Trump111");
+		
+//		em.detach(student);
+		
+		executeInTransaction(() -> {});
 	}
 	
 	@Test

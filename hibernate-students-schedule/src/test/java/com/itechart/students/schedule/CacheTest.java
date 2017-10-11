@@ -2,11 +2,13 @@ package com.itechart.students.schedule;
 
 import org.hibernate.Hibernate;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.itechart.students.schedule.model.Course;
 import com.itechart.students.schedule.model.Lecturer;
 
+@Ignore
 public class CacheTest extends AbstractTest {
 
 	@Test

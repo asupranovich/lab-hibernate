@@ -16,12 +16,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.itechart.students.schedule.model.Gender;
 import com.itechart.students.schedule.model.Person;
 import com.itechart.students.schedule.model.Student;
 
+@Ignore
 public class QueriesTest extends AbstractTest {
 
 	@Test

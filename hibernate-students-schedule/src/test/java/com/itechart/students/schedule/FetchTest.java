@@ -9,12 +9,14 @@ import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
 import org.hibernate.Session;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.itechart.students.schedule.model.Course;
 import com.itechart.students.schedule.model.Lecturer;
 import com.itechart.students.schedule.model.Student;
 
+@Ignore
 public class FetchTest extends AbstractTest {
 
 	@Test
@@ -23,13 +25,11 @@ public class FetchTest extends AbstractTest {
 		Assert.assertNotNull(course);
 		
 		List<Student> students = course.getStudents();
-//		System.out.println("Student list class:" + students.getClass());
 		Assert.assertNotNull(students);
 		Assert.assertFalse(Hibernate.isInitialized(students));
 		
 		
 		Lecturer lecturer = course.getLecturer();
-//		System.out.println("Lecturer class: " + lecturer.getClass());
 		Assert.assertNotNull(lecturer);
 		Assert.assertFalse(Hibernate.isInitialized(lecturer));
 		
