@@ -1,6 +1,7 @@
 package com.itechart.students.schedule;
 
 import java.util.Calendar;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,56 +12,24 @@ import com.itechart.students.schedule.model.ContactInformation;
 import com.itechart.students.schedule.model.Gender;
 import com.itechart.students.schedule.model.Student;
 
+public class CascadeTest extends AbstractTest {
 
-public class EntityManagerTest extends AbstractTest {
-	
 	@Test
-	public void testFind() {
-		Student student = em.find(Student.class, 1L);
-		Assert.assertNotNull(student);
-		Assert.assertEquals("Cooper", student.getLastName());
-	}
-	
-	@Test
-	public void testPersist() {
+	public void testCascadePersist() {
 		Student student = new Student();
 		student.setFirstName("John");
 		student.setLastName("Doe");
+		student.setGender(Gender.MALE);
+		student.setYear(4);
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(1987, 1, 28);
 		student.setBirthDate(calendar.getTime());
 		
-		student.setGender(Gender.MALE);
-		student.setYear(4);
-		
 		ContactInformation contactInfo = new ContactInformation();
 		contactInfo.setEmail("john.doe@email.tst");
 		contactInfo.setPhone("+3752999988777");
-		
 		student.setContactInfo(contactInfo);
-		
-		executeInTransaction(() -> {
-			em.persist(student);
-		});
-		
-		Long studentId = student.getId();
-		System.out.println("Student Id is:" + studentId);
-		Assert.assertTrue(studentId > 0);
-	}
-	
-	@Test
-	public void testMerge() {
-		Student student = em.find(Student.class, 15L);
-		student.setGender(Gender.FEMALE);
-		
-		executeInTransaction(() -> {
-			em.merge(student);
-		});
-	}
-	
-	@Test
-	public void testMergeAddresses() {
 		
 		Address homeAddress = new Address();
 		homeAddress.setCity("Minsk");
@@ -76,9 +45,26 @@ public class EntityManagerTest extends AbstractTest {
 		workAddress.setType(AddressType.WORK);
 		workAddress.setZip("222000");
 		
-		Student student = em.find(Student.class, 15L);
 		student.getAddresses().add(homeAddress);
-		student.getAddresses().add(workAddress);
+		student.getAddresses().add(workAddress);		
+		
+		executeInTransaction(() -> {
+			em.persist(student);
+		});
+		
+		Long studentId = student.getId();
+		System.out.println("Student Id is:" + studentId);
+	}
+	
+	@Test
+	public void testCascadeMerge() {
+		Student student = em.find(Student.class, 19L);
+		student.setGender(Gender.MALE);
+		
+		Set<Address> addresses = student.getAddresses();
+		Address address = addresses.iterator().next();
+		address.setCity("Moscow");
+		em.detach(address);
 		
 		executeInTransaction(() -> {
 			em.merge(student);
@@ -86,23 +72,27 @@ public class EntityManagerTest extends AbstractTest {
 	}
 	
 	@Test
-	public void testRefresh() {
-		Student student = em.find(Student.class, 15L);
-		Assert.assertEquals("John", student.getFirstName());
+	public void testOrfanRemoval() {
+		Student student = em.find(Student.class, 17L);
 		
-		// put breakpoint here and change value in DB
-		em.refresh(student);
-		Assert.assertEquals("John1", student.getFirstName());
+		Set<Address> addresses = student.getAddresses();
+		Address address = addresses.iterator().next();
+		
+		addresses.remove(address);
+		
+		executeInTransaction(() -> {
+			em.merge(student);
+		});
 	}
 	
 	@Test
-	public void testRemove() {
-		Student student = em.getReference(Student.class, 15L);
+	public void testCascadeRemove() {
+		Student student = em.getReference(Student.class, 17L);
 		executeInTransaction(() -> {
 			em.remove(student);
 		});
 		
-		Student nullStudent = em.find(Student.class, 15L);
+		Student nullStudent = em.find(Student.class, 17L);
 		Assert.assertNull(nullStudent);
 	}
 	

@@ -56,9 +56,8 @@ public abstract class AbstractTest {
 		}
 	}
 
+	@FunctionalInterface
 	protected interface WorkUnit {
-
 		void execute();
-
 	}
 }

@@ -37,7 +37,7 @@ public class Person extends Identity {
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE/*, orphanRemoval = true*/)
 	@JoinColumn(name="OWNER_ID", referencedColumnName = "ID")
 	private Set<Address> addresses = new HashSet<>();
 	

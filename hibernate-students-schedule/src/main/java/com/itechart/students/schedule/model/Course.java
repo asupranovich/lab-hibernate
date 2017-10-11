@@ -28,7 +28,7 @@ public class Course extends Identity {
 		inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
 	)
 	@OrderBy("lastName ASC")
-	@org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
+	@org.hibernate.annotations.Fetch(FetchMode.SELECT)
 //	@org.hibernate.annotations.BatchSize(size = 10)
 	private List<Student> students = new ArrayList<>();
 	

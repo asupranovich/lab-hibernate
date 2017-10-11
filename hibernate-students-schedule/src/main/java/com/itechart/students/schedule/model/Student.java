@@ -38,6 +38,14 @@ public class Student extends Person {
 		this.courses = courses;
 	}
 
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	public Double getAverageMark() {
 		return averageMark;
 	}

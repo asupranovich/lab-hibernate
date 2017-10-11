@@ -38,16 +38,11 @@ public class ProxyTest extends AbstractTest {
 	
 	@Test
 	public void testLecturerReferenceUsage() {
-		executeInTransaction(new WorkUnit() {
-
-			@Override
-			public void execute() {
-				Lecturer lecturer = em.getReference(Lecturer.class, 11L);
-				Course course = em.find(Course.class, 5L);
-				course.setLecturer(lecturer);
-
-				em.merge(course);
-			}
+		executeInTransaction(() -> {
+			Lecturer lecturer = em.getReference(Lecturer.class, 11L);
+			Course course = em.find(Course.class, 5L);
+			course.setLecturer(lecturer);
+			em.merge(course);
 		});
 	}
 	

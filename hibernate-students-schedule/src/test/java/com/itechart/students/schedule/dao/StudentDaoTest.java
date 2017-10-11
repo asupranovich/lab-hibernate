@@ -37,34 +37,4 @@ public class StudentDaoTest extends AbstractTest {
 		Assert.assertTrue(averageMark != null && averageMark > 0);
 	}
 
-	@Test
-	public void testUpdate() {
-
-		executeInTransaction(new WorkUnit() {
-			@Override
-			public void execute() {
-				Student student = studentDao.getById(1L);
-				Assert.assertNotNull(student);
-
-				student.setLastName("Cooper111");
-				studentDao.update(student);
-			}
-		});
-	}
-
-	@Test
-	public void testDelete() {
-
-		executeInTransaction(new WorkUnit() {
-			@Override
-			public void execute() {
-				Student student = studentDao.getById(14L);
-				studentDao.delete(student);
-			}
-		});
-		
-		Student student = studentDao.getById(14L);
-		Assert.assertNull(student);
-	}
-
 }
