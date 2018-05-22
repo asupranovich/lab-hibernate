@@ -22,8 +22,8 @@ public class Address extends Identity {
 
 	@Column(name = "STREET")
 	@NotNull
-	@Length.List({ @Length(min = 3, message = "Street should be at least {min} characters"),
-			@Length(max = 50, message = "Street should be less than {max} characters"), })
+//	@Length.List({ @Length(min = 3, message = "Street should be at least {min} characters"),
+			@Length(max = 50, message = "Street should be less than {max} characters")//})
 	private String street;
 
 	@Column(name = "CITY")
