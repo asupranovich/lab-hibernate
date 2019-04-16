@@ -9,25 +9,25 @@ import javax.persistence.Query;
 
 public class HelloWorldHibernate {
 
-	private static final String PERSISTENT_UNIT = "hello-world-hibernate";
+    private static final String PERSISTENT_UNIT = "hello-world-hibernate";
 
-	public static void main(String a[]) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
-		EntityManager em = emf.createEntityManager();
-		
-		List<Student> students = getStudents(em);
-		PrintUtils.printStudents(students);
-		
-		em.close();
-		emf.close();
-	}
+    public static void main(String a[]) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
+        EntityManager em = emf.createEntityManager();
 
-	@SuppressWarnings("unchecked")
-	private static List<Student> getStudents(EntityManager em) {
-		Query query = em.createQuery("select s from Student s");
-		List<Student> students = (List<Student>) query.getResultList();
+        List<Student> students = getStudents(em);
+        PrintUtils.printStudents(students);
 
-		return students;
-	}
+        em.close();
+        emf.close();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<Student> getStudents(EntityManager em) {
+        Query query = em.createQuery("select s from Student s");
+        List<Student> students = (List<Student>) query.getResultList();
+
+        return students;
+    }
 
 }

@@ -7,8 +7,8 @@ import com.itechart.students.schedule.model.Address;
 
 public class AddressDaoImpl extends GenericDaoImpl<Address> implements AddressDao {
 
-	public AddressDaoImpl(EntityManager em) {
-		super(em, Address.class);
-	}
+    public AddressDaoImpl(EntityManager em) {
+        super(em, Address.class);
+    }
 
 }

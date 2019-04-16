@@ -1,7 +1,6 @@
 package com.itechart.students.schedule.dao.impl;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -15,27 +14,27 @@ import com.itechart.students.schedule.model.Course;
 
 public class CourseDaoImpl extends GenericDaoImpl<Course> implements CourseDao {
 
-	public CourseDaoImpl(EntityManager em) {
-		super(em, Course.class);
-	}
+    public CourseDaoImpl(EntityManager em) {
+        super(em, Course.class);
+    }
 
-	@Override
-	public Course getWithAllData(Long id) {
-		Course course = em.find(Course.class, 1L);
-		return course;
-	}
-	
-	@Override
-	public Collection<Course> getAllWithAllData() {
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<Course> criteria = criteriaBuilder.createQuery(Course.class);
-		Root<Course> from = criteria.from(Course.class);
-		from.fetch("lecturer", JoinType.LEFT);
-		criteria.select(from);
+    @Override
+    public Course getWithAllData(Long id) {
+        Course course = em.find(Course.class, 1L);
+        return course;
+    }
 
-		TypedQuery<Course> query = em.createQuery(criteria);
+    @Override
+    public Collection<Course> getAllWithAllData() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Course> criteria = criteriaBuilder.createQuery(Course.class);
+        Root<Course> from = criteria.from(Course.class);
+        from.fetch("lecturer", JoinType.LEFT);
+        criteria.select(from);
 
-		return query.getResultList();
-	}
+        TypedQuery<Course> query = em.createQuery(criteria);
+
+        return query.getResultList();
+    }
 
 }

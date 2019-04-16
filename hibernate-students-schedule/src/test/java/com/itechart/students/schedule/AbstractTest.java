@@ -12,52 +12,54 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractTest {
 
-	protected final static Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
-	private static final String PERSISTENT_UNIT = "hello-world-hibernate";
+    protected final static Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
+    private static final String PERSISTENT_UNIT = "lab-students-schedule";
 
-	protected EntityManager em;
-	private EntityManagerFactory emf;
+    protected EntityManager em;
+    private EntityManagerFactory emf;
 
-	protected boolean executeInTransaction(WorkUnit workUnit) {
-		EntityTransaction transaction = em.getTransaction();
-		boolean commited;
-		try {
-			transaction.begin();
-			workUnit.execute();
-			transaction.commit();
-			LOG.info("Transaction committed");
-			commited = true;
-		} catch (Exception e) {
-			LOG.warn("Got exception --> transaction will be rolled back", e);
-			transaction.rollback();
-			commited = false;
-		}
-		return commited;
-	}
+    protected boolean executeInTransaction(WorkUnit workUnit) {
+        EntityTransaction transaction = em.getTransaction();
+        boolean commited;
+        try {
+            transaction.begin();
+            workUnit.execute();
+            transaction.commit();
+            LOG.info("Transaction committed");
+            commited = true;
+        } catch (Exception e) {
+            LOG.warn("Got exception --> transaction will be rolled back", e);
+            transaction.rollback();
+            commited = false;
+        }
+        return commited;
+    }
 
-	@Before
-	public void init() {
-		emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
-		em = emf.createEntityManager();
-		setup();
-	}
-	
-	protected void setup() {
-		
-	}
+    @Before
+    public void init() {
+        emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
+        em = emf.createEntityManager();
+        setup();
+    }
 
-	@After
-	public void cleanUp() {
-		if (em.isOpen()) {
-			em.close();
-		}
-		if (emf.isOpen()) {
-			emf.close();
-		}
-	}
+    protected void setup() {
 
-	@FunctionalInterface
-	protected interface WorkUnit {
-		void execute();
-	}
+    }
+
+    @After
+    public void cleanUp() {
+        if (em.isOpen()) {
+            em.close();
+        }
+        if (emf.isOpen()) {
+            emf.close();
+        }
+    }
+
+    @FunctionalInterface
+    protected interface WorkUnit {
+
+        void execute();
+        
+    }
 }
