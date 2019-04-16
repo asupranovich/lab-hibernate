@@ -32,7 +32,7 @@ public class Course extends Identity {
 //	@org.hibernate.annotations.BatchSize(size = 10)
     private List<Student> students = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "LECTURER_ID")
     private Lecturer lecturer;
 

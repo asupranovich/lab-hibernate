@@ -1,5 +1,7 @@
 package com.itechart.students.schedule.dao;
 
+import java.util.Collection;
+
 import com.itechart.students.schedule.model.Identity;
 
 public interface GenericDao<T extends Identity> {
@@ -13,4 +15,6 @@ public interface GenericDao<T extends Identity> {
     void update(T record);
 
     void detach(T record);
+	
+    Collection<T> getAll();
 }

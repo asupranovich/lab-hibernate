@@ -32,4 +32,14 @@ public class CourseDaoTest extends AbstractTest {
         Assert.assertTrue(courses.size() > 0);
     }
 
+    @Test
+    public void testGetById() {
+        courseDao.getById(1L);
+    }
+
+    @Test
+    public void testGetAll() {
+        courseDao.getAll();
+    }
+	
 }

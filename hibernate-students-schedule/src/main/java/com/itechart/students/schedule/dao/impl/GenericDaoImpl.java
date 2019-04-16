@@ -1,7 +1,13 @@
 package com.itechart.students.schedule.dao.impl;
 
+import java.util.Collection;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.itechart.students.schedule.dao.GenericDao;
 import com.itechart.students.schedule.model.Identity;
@@ -49,6 +55,19 @@ public abstract class GenericDaoImpl<T extends Identity> implements GenericDao<T
         em.detach(record);
     }
 
+    @Override
+    public Collection<T> getAll() {
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteria = criteriaBuilder.createQuery(entityClass);
+        Root<T> from = criteria.from(entityClass);
+        criteria.select(from);
+
+        TypedQuery<T> query = em.createQuery(criteria);
+
+        return query.getResultList();
+    }
+
     protected boolean executeInTransaction(WorkUnit workUnit) {
         EntityTransaction transaction = em.getTransaction();
         boolean commited;
@@ -68,7 +87,7 @@ public abstract class GenericDaoImpl<T extends Identity> implements GenericDao<T
     protected interface WorkUnit {
 
         void execute();
-        
+
     }
 
 }

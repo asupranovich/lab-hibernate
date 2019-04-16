@@ -9,4 +9,6 @@ public interface CourseDao extends GenericDao<Course> {
     Course getWithAllData(Long id);
 
     Collection<Course> getAllWithAllData();
+	
+    Collection<Course> getAll();
 }
