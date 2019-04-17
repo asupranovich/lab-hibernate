@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.FetchMode;
-
 @Entity
 @Table(name = "COURSE")
 public class Course extends Identity {
@@ -28,11 +26,11 @@ public class Course extends Identity {
             inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
     )
     @OrderBy("lastName ASC")
-    @org.hibernate.annotations.Fetch(FetchMode.SELECT)
-//	@org.hibernate.annotations.BatchSize(size = 10)
+    @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SELECT)
+    @org.hibernate.annotations.BatchSize(size = 10)
     private List<Student> students = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURER_ID")
     private Lecturer lecturer;
 

@@ -1,27 +1,29 @@
 package com.itechart.students.schedule.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ *
+ * @author asupranovich
+ */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "PERSON_TYPE")
-public class Person extends Identity {
+@Table(name = "PERSON")
+public class PersonSimplified implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -36,12 +38,20 @@ public class Person extends Identity {
     @Column(name = "BIRTH_DATE")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+    
+    @Column(name = "EMAIL")
+    private String email;
 
-    @OneToMany(fetch = FetchType.LAZY/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
-    @JoinColumn(name = "OWNER_ID", referencedColumnName = "ID")
-    private Set<Address> addresses = new HashSet<>();
+    @Column(name = "PHONE")
+    private String phone;
+    
+    public Long getId() {
+        return id;
+    }
 
-    private ContactInformation contactInfo;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -75,20 +85,20 @@ public class Person extends Identity {
         this.birthDate = birthDate;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public ContactInformation getContactInfo() {
-        return contactInfo;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContactInfo(ContactInformation contactInfo) {
-        this.contactInfo = contactInfo;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-
+    
 }

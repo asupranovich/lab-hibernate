@@ -18,23 +18,6 @@ public abstract class AbstractTest {
     protected EntityManager em;
     private EntityManagerFactory emf;
 
-    protected boolean executeInTransaction(WorkUnit workUnit) {
-        EntityTransaction transaction = em.getTransaction();
-        boolean commited;
-        try {
-            transaction.begin();
-            workUnit.execute();
-            transaction.commit();
-            LOG.info("Transaction committed");
-            commited = true;
-        } catch (Exception e) {
-            LOG.warn("Got exception --> transaction will be rolled back", e);
-            transaction.rollback();
-            commited = false;
-        }
-        return commited;
-    }
-
     @Before
     public void init() {
         emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT);
@@ -54,6 +37,23 @@ public abstract class AbstractTest {
         if (emf.isOpen()) {
             emf.close();
         }
+    }
+    
+    protected boolean executeInTransaction(WorkUnit workUnit) {
+        EntityTransaction transaction = em.getTransaction();
+        boolean commited;
+        try {
+            transaction.begin();
+            workUnit.execute();
+            transaction.commit();
+            LOG.info("Transaction committed");
+            commited = true;
+        } catch (Exception e) {
+            LOG.warn("Got exception --> transaction will be rolled back", e);
+            transaction.rollback();
+            commited = false;
+        }
+        return commited;
     }
 
     @FunctionalInterface

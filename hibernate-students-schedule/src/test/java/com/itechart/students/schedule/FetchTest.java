@@ -40,7 +40,7 @@ public class FetchTest extends AbstractTest {
     }
 
     @Test
-    // TODO: change FetchType in Course class to EAGER before running
+    // change all FetchTypes in Course class to EAGER before running
     public void testEagerLoading() {
         Course course = em.find(Course.class, 1L);
         Assert.assertNotNull(course);
@@ -61,7 +61,7 @@ public class FetchTest extends AbstractTest {
     }
 
     @Test
-    // TODO: change FetchType in Course class back to LAZY before running
+    // change all FetchTypes in Course class back to LAZY before running
     public void testJoinFetch() {
         TypedQuery<Course> courseQuery = em.createQuery("select c from Course c join fetch c.students join fetch c.lecturer where c.id = :courseId", Course.class);
         courseQuery.setParameter("courseId", 1L);
@@ -104,25 +104,30 @@ public class FetchTest extends AbstractTest {
         List<Course> courses = courseQuery.getResultList();
         Assert.assertTrue(courses != null && courses.size() > 0);
 
-        for (Course course : courses) {
+        courses.forEach((course) -> {
             System.out.println(course.getStudents().size());
-        }
+        });
     }
 
     @SuppressWarnings("unchecked")
     @Test
-    //TODO: uncomment Fetch annotation in Course class before running
+    // uncomment org.hibernate.annotations.Fetch annotation in Course class before running
+    // change org.hibernate.annotations.Fetch value to JOIN, SUBSELECT and SELECT (with and without @BatchSize)
+    // run first for EAGER, then for LAZY loading of students
     public void testFetchMode() {
         // FetchMode.JOIN works only with session
         Session session = em.unwrap(Session.class);
         Criteria courseCriteria = session.createCriteria(Course.class);
-        List<Course> courses = (List<Course>) courseCriteria.list();
+        List<Course> courses = (List<Course>) courseCriteria
+//                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY) // uncomment for Fetch.JOIN
+                .list();
 
         Assert.assertTrue(courses != null && courses.size() > 0);
+        System.out.println("Courses number: " + courses.size());
 
-        for (Course course : courses) {
+        courses.forEach((course) -> {
             System.out.println(course.getStudents().size());
-        }
+        });
     }
 
 }
