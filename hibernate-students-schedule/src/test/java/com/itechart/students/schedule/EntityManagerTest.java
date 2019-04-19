@@ -67,7 +67,7 @@ public class EntityManagerTest extends AbstractTest {
         person.setLastName("Trump");
         
         // uncomment the next line to show 'detach' behavior
-        // em.detach(student);
+        // em.detach(person);
         executeInTransaction(() -> {});
     }
 
